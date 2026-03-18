@@ -18,8 +18,9 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QGroupBox,
     QHBoxLayout, QMainWindow, QMenu, QMenuBar,
-    QPlainTextEdit, QPushButton, QSizePolicy, QStackedWidget,
-    QStatusBar, QVBoxLayout, QWidget)
+    QPlainTextEdit, QPushButton, QRadioButton, QSizePolicy,
+    QSpacerItem, QStackedWidget, QStatusBar, QVBoxLayout,
+    QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -44,6 +45,8 @@ class Ui_MainWindow(object):
         self.actionLight.setObjectName(u"actionLight")
         self.actionDark = QAction(MainWindow)
         self.actionDark.setObjectName(u"actionDark")
+        self.actionRunning_Apps = QAction(MainWindow)
+        self.actionRunning_Apps.setObjectName(u"actionRunning_Apps")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_9 = QVBoxLayout(self.centralwidget)
@@ -57,7 +60,7 @@ class Ui_MainWindow(object):
         self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
         self.basicFrame = QFrame(self.basicPage)
         self.basicFrame.setObjectName(u"basicFrame")
-        self.basicFrame.setFrameShape(QFrame.StyledPanel)
+        self.basicFrame.setFrameShape(QFrame.NoFrame)
         self.basicFrame.setFrameShadow(QFrame.Raised)
         self.gridLayout_2 = QGridLayout(self.basicFrame)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
@@ -151,7 +154,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.frame = QFrame(self.Hardware)
         self.frame.setObjectName(u"frame")
-        self.frame.setFrameShape(QFrame.StyledPanel)
+        self.frame.setFrameShape(QFrame.NoFrame)
         self.frame.setFrameShadow(QFrame.Raised)
         self.gridLayout_6 = QGridLayout(self.frame)
         self.gridLayout_6.setObjectName(u"gridLayout_6")
@@ -266,6 +269,50 @@ class Ui_MainWindow(object):
         self.gridLayout_5.addWidget(self.groupBox_8, 3, 0, 1, 2)
 
         self.stackedWidget.addWidget(self.SystemPage)
+        self.runningAppPage = QWidget()
+        self.runningAppPage.setObjectName(u"runningAppPage")
+        self.gridLayout_4 = QGridLayout(self.runningAppPage)
+        self.gridLayout_4.setObjectName(u"gridLayout_4")
+        self.gridLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.groupBox_11 = QGroupBox(self.runningAppPage)
+        self.groupBox_11.setObjectName(u"groupBox_11")
+        self.groupBox_11.setFlat(True)
+        self.gridLayout_7 = QGridLayout(self.groupBox_11)
+        self.gridLayout_7.setObjectName(u"gridLayout_7")
+        self.gridLayout_7.setContentsMargins(0, 0, 0, 0)
+        self.autoUpdateCheck = QRadioButton(self.groupBox_11)
+        self.autoUpdateCheck.setObjectName(u"autoUpdateCheck")
+
+        self.gridLayout_7.addWidget(self.autoUpdateCheck, 2, 2, 1, 1)
+
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.gridLayout_7.addItem(self.horizontalSpacer, 2, 1, 1, 1)
+
+        self.updateRunningProcesses = QPushButton(self.groupBox_11)
+        self.updateRunningProcesses.setObjectName(u"updateRunningProcesses")
+
+        self.gridLayout_7.addWidget(self.updateRunningProcesses, 2, 4, 1, 1)
+
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.gridLayout_7.addItem(self.horizontalSpacer_2, 2, 3, 1, 1)
+
+        self.horizontalSpacer_3 = QSpacerItem(10, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+
+        self.gridLayout_7.addItem(self.horizontalSpacer_3, 2, 5, 1, 1)
+
+        self.runningAppInfo = QPlainTextEdit(self.groupBox_11)
+        self.runningAppInfo.setObjectName(u"runningAppInfo")
+        self.runningAppInfo.setFrameShadow(QFrame.Plain)
+        self.runningAppInfo.setReadOnly(True)
+
+        self.gridLayout_7.addWidget(self.runningAppInfo, 3, 0, 1, 6)
+
+
+        self.gridLayout_4.addWidget(self.groupBox_11, 0, 0, 1, 1)
+
+        self.stackedWidget.addWidget(self.runningAppPage)
 
         self.verticalLayout_9.addWidget(self.stackedWidget)
 
@@ -296,6 +343,7 @@ class Ui_MainWindow(object):
         self.menuInfo.addAction(self.actionBasic_Info)
         self.menuInfo.addAction(self.actionCPU_info)
         self.menuInfo.addAction(self.actionSystem_Info)
+        self.menuInfo.addAction(self.actionRunning_Apps)
         self.menuHelp.addAction(self.actionHelp)
         self.menuHelp.addAction(self.actionAbout)
         self.menuSettings.addAction(self.menuTheme.menuAction())
@@ -304,7 +352,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -320,6 +368,7 @@ class Ui_MainWindow(object):
         self.actionBasic_Info.setText(QCoreApplication.translate("MainWindow", u"Basic Info", None))
         self.actionLight.setText(QCoreApplication.translate("MainWindow", u"Light", None))
         self.actionDark.setText(QCoreApplication.translate("MainWindow", u"Dark", None))
+        self.actionRunning_Apps.setText(QCoreApplication.translate("MainWindow", u"Active Processes", None))
         self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"User Details", None))
         self.groupBox_4.setTitle(QCoreApplication.translate("MainWindow", u"Drives", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"System Details", None))
@@ -331,6 +380,9 @@ class Ui_MainWindow(object):
         self.groupBox_7.setTitle(QCoreApplication.translate("MainWindow", u"Kernel Info", None))
         self.kernelRefresh.setText(QCoreApplication.translate("MainWindow", u"Refresh Kernel Modules", None))
         self.groupBox_8.setTitle(QCoreApplication.translate("MainWindow", u"Kernel modules", None))
+        self.groupBox_11.setTitle(QCoreApplication.translate("MainWindow", u"Running Processes", None))
+        self.autoUpdateCheck.setText(QCoreApplication.translate("MainWindow", u"Auto Update", None))
+        self.updateRunningProcesses.setText(QCoreApplication.translate("MainWindow", u"Update", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuInfo.setTitle(QCoreApplication.translate("MainWindow", u"Info", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))

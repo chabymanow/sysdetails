@@ -1,5 +1,5 @@
 import sys
-from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtWidgets import QApplication, QMainWindow, QFrame
 from PySide6.QtWidgets import QGraphicsDropShadowEffect, QPlainTextEdit, QGroupBox
 from PySide6.QtGui import QColor
 from ui.ui_mainwindow import Ui_MainWindow
@@ -36,6 +36,7 @@ class MainWindow(QMainWindow):
         self.ui.RAMInfo.setFont(font)
         self.ui.UptimeInfo.setFont(font)
         self.ui.networkInfo.setFont(font)
+        self.ui.runningAppInfo.setFont(font)
 
         shadow = QGraphicsDropShadowEffect()
         shadow.setBlurRadius(10)
@@ -48,6 +49,7 @@ class MainWindow(QMainWindow):
         self.ui.kernelRefresh.clicked.connect(self.getKernelModules)
         self.ui.actionDark.triggered.connect(func.set_dark_theme)
         self.ui.actionLight.triggered.connect(func.set_light_theme)
+        self.ui.actionRunning_Apps.triggered.connect(self.openRunningApps)
 
         self.setupSensorTimer()
         self.getCPUinfo()
@@ -92,8 +94,11 @@ class MainWindow(QMainWindow):
     def openSystemInfo(self):
         self.getKernelInfo()
         self.getKernelModules()
-        
         self.show_page(2)
+
+    def openRunningApps(self):
+        self.getRunningApps()
+        self.show_page(3)
 
     def getNetworkDetails(self):
         extIP = requests.get("https://api.ipify.org").text
@@ -123,6 +128,32 @@ class MainWindow(QMainWindow):
         for line in result.stdout.splitlines():
             if line.startswith("default"):
                 self.ui.networkInfo.appendPlainText(f"{'Default gateway':<15}: {line}")
+
+    def getRunningApps(self):
+        self.ui.runningAppInfo.clear()
+        for p in psutil.process_iter():
+            p.cpu_percent(None)
+        time.sleep(1)
+        processes = []
+        for proc in psutil.process_iter(['pid', 'name', 'cpu_percent', 'memory_percent', 'username', 'status']):
+            try:
+                processes.append(proc.info)
+            except:
+                pass
+
+        # sort by CPU
+        processes = sorted(processes, key=lambda x: x['cpu_percent'], reverse=True)
+        self.ui.runningAppInfo.appendPlainText(f"{'PID':<15}{'NAME':<40}{'USER':<20}{'CPU %':<10}{'RAM %':<10}{'STATUS':<12}")
+        self.ui.runningAppInfo.appendPlainText("-" * 105)
+        for p in processes[:50]:
+            print(p)
+            self.ui.runningAppInfo.appendPlainText(f"{str(p['pid']):<10} {p['name']:<40} {p['username']:<20} {"{:.1%}".format(p['cpu_percent'] / 100):<10} {"{:.1%}".format(p['memory_percent'] / 100):<10}{p['status']:<12}")
+
+        # for proc in psutil.process_iter(['pid', 'name', 'username']):
+        #     try:
+        #         self.ui.runningAppInfo.appendPlainText(f"{proc.info['pid']:>10} | {proc.info['name']:<60} | {proc.info['username']}")
+        #     except (psutil.NoSuchProcess, psutil.AccessDenied):
+        #         pass
 
     def getRAMInfo(self):
         mem = psutil.virtual_memory()
@@ -302,6 +333,7 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setStyleSheet("")
+    func.load_stylesheet(app, "main")
     func.load_stylesheet(app, "dark")
     window = MainWindow()
     window.show()

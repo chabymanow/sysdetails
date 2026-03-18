@@ -27,7 +27,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="basicPage">
        <layout class="QGridLayout" name="gridLayout_3">
@@ -46,7 +46,7 @@
         <item row="0" column="0">
          <widget class="QFrame" name="basicFrame">
           <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
+           <enum>QFrame::NoFrame</enum>
           </property>
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
@@ -227,7 +227,7 @@
         <item>
          <widget class="QFrame" name="frame">
           <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
+           <enum>QFrame::NoFrame</enum>
           </property>
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
@@ -447,6 +447,115 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="runningAppPage">
+       <layout class="QGridLayout" name="gridLayout_4">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_11">
+          <property name="title">
+           <string>Running Processes</string>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_7">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item row="2" column="2">
+            <widget class="QRadioButton" name="autoUpdateCheck">
+             <property name="text">
+              <string>Auto Update</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="2" column="4">
+            <widget class="QPushButton" name="updateRunningProcesses">
+             <property name="text">
+              <string>Update</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="2" column="5">
+            <spacer name="horizontalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>10</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="3" column="0" colspan="6">
+            <widget class="QPlainTextEdit" name="runningAppInfo">
+             <property name="frameShadow">
+              <enum>QFrame::Plain</enum>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -473,6 +582,7 @@
     <addaction name="actionBasic_Info"/>
     <addaction name="actionCPU_info"/>
     <addaction name="actionSystem_Info"/>
+    <addaction name="actionRunning_Apps"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -538,6 +648,11 @@
   <action name="actionDark">
    <property name="text">
     <string>Dark</string>
+   </property>
+  </action>
+  <action name="actionRunning_Apps">
+   <property name="text">
+    <string>Active Processes</string>
    </property>
   </action>
  </widget>
